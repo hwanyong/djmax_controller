@@ -16,7 +16,8 @@
 #define LBTN 16
 #define RBTN 17
 
-#define KEYMODE 1 // { 0: Encoder, 1: Switch }
+#define KEYMODE	1 // { 0: Encoder, 1: Switch }
+#define DEBUG	0 // { 0: none, 1: only Serial.monitor, 2: only oled display, 3: all }
 
 ESP32Encoder encoder0;
 ESP32Encoder encoder1;
@@ -92,18 +93,24 @@ void loop() {
 	int R_BTN = digitalRead(RBTN);
 
 	if (L_BTN == HIGH) {
+		#if DEBUG != 0
 		Serial.print(millis());
 		Serial.print(':');
 		Serial.print(L_BTN);
 		Serial.println(": L_BTN");
+		#endif
 		dacWrite(DAC1, 255);
 	}
+	else dacWrite(DAC1, DAC_BASE_VALUE);
 	if (R_BTN == HIGH) {
+		#if DEBUG != 0
 		Serial.print(millis());
 		Serial.print(':');
 		Serial.print(R_BTN);
 		Serial.println("R_BTN");
+		#endif
 		dacWrite(DAC2, 255);
 	}
+	else dacWrite(DAC2, DAC_BASE_VALUE);
 	#endif
 }
