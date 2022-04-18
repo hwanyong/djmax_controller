@@ -43,8 +43,8 @@ void setup() {
 
 	prevms = millis();
 	#else
-	pinMode(LBTN, INPUT);
-	pinMode(RBTN, INPUT);
+	pinMode(LBTN, INPUT_PULLUP);
+	pinMode(RBTN, INPUT_PULLUP);
 	#endif
 }
 
@@ -92,7 +92,7 @@ void loop() {
 	int L_BTN = digitalRead(LBTN);
 	int R_BTN = digitalRead(RBTN);
 
-	if (L_BTN == HIGH) {
+	if (L_BTN == LOW) {
 		#if DEBUG != 0
 		Serial.print(millis());
 		Serial.print(':');
@@ -102,7 +102,7 @@ void loop() {
 		dacWrite(DAC1, 255);
 	}
 	else dacWrite(DAC1, DAC_BASE_VALUE);
-	if (R_BTN == HIGH) {
+	if (R_BTN == LOW) {
 		#if DEBUG != 0
 		Serial.print(millis());
 		Serial.print(':');
